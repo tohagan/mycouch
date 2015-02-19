@@ -11,7 +11,6 @@
     <AssemblyName>MyCouch.Net45</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -86,6 +85,7 @@
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
+    <Compile Include="HttpRequestFactories\QueryShowHttpRequestFactory.cs" />
     <Compile Include="IAttachments.cs" />
     <Compile Include="IChanges.cs" />
     <Compile Include="IConnection.cs" />
@@ -100,6 +100,7 @@
     <Compile Include="IQueryParameters.cs" />
     <Compile Include="IReplicator.cs" />
     <Compile Include="IServerConnection.cs" />
+    <Compile Include="IShowParameters.cs" />
     <Compile Include="IViews.cs" />
     <Compile Include="MyCouchClient.cs" />
     <Compile Include="MyCouchClientBootstrapper.cs" />
@@ -129,6 +130,8 @@
     <Compile Include="QueryInfo.cs" />
     <Compile Include="Querying\QueryExtensions.cs" />
     <Compile Include="Querying\QueryParameters.cs" />
+    <Compile Include="Querying\ShowParameters.cs" />
+    <Compile Include="QueryShowParametersConfigurator.cs" />
     <Compile Include="QueryViewParametersConfigurator.cs" />
     <Compile Include="Requests\BulkRequest.cs" />
     <Compile Include="Requests\CompactDatabaseRequest.cs" />
@@ -184,6 +187,7 @@
     <Compile Include="Requests\PutDatabaseRequest.cs" />
     <Compile Include="Requests\PutDocumentRequest.cs" />
     <Compile Include="Requests\PutEntityRequest.cs" />
+    <Compile Include="Requests\QueryShowRequest.cs" />
     <Compile Include="Requests\QueryViewRequest.cs" />
     <Compile Include="Requests\ReplaceDocumentRequest.cs" />
     <Compile Include="Requests\ReplicateDatabaseRequest.cs" />
@@ -255,6 +259,7 @@
     <Compile Include="Serialization\DocumentJsonWriter.cs" />
     <Compile Include="Stale.cs" />
     <Compile Include="SystemViewIdentity.cs" />
+    <Compile Include="ShowIdentity.cs" />
     <Compile Include="ViewIdentity.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -262,13 +267,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
